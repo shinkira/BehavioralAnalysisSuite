@@ -140,6 +140,14 @@ if ~isempty(dataCell) && isfield(dataCell{1}.maze,'twoFac') && ~isfield(dataCell
     end
 end
 
+% process probCrutch Added by VS 02/15/17
+if ~isempty(dataCell) && isfield(dataCell{1}.maze,'probCrutch') 
+    if ~multiData && size(data,1) >= 10
+        procData.probCrutch = data(10,end);
+        procData.probCrutchAll = data(10,:);
+    end
+end
+
 %process delay
 if ~isempty(dataCell) && isfield(dataCell{1}.maze,'delayLength')
     if ~multiData && size(data,1) >= 10

@@ -171,6 +171,12 @@ if isfield(procData,'twoFac')
     table.special.data(size(table.special.data,1)+1,1) = procData.twoFac;
     table.special.names = {'twoFac'};
 end
+    
+    % Added by VS 02/15/17
+if isfield(procData,'probCrutch')
+    table.special.data(size(table.special.data,1)+1,1) = procData.probCrutch;
+    table.special.names = [table.special.names,{'probMask'}];
+end
 
 if isfield(procData,'delayLength')
     table.special.data(size(table.special.data,1)+1,1) = procData.delayLength;

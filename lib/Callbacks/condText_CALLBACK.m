@@ -39,6 +39,12 @@ end
 %process whole data
 lastX = str2double(get(guiObjects.lastX,'String'));
 [procData] = processDataCell(data,dataCell);
+
+% added by SK to hide greyFac on table 17/02/23
+if ~isempty(strfind(guiObjects.experName,'ver4'))
+    procData = rmfield(procData,'greyFac');
+end
+
 table{1} = convertToTableCell(procData);
 table{1}.vals = vals;
 

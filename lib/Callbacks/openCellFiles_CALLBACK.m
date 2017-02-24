@@ -268,6 +268,7 @@ end
 %process data
 [procData] = processDataCell(data,dataCell);
 
+
 %update table
 condText_CALLBACK(src,evnt,dataCell,data,guiObjects,online);
 
