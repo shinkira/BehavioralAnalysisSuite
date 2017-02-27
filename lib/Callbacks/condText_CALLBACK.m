@@ -8,6 +8,7 @@ function condText_CALLBACK(src,evnt,dataCell,data,guiObjects,online)
 %ASM 9/19/12
 
 %get most up to date guiObjects
+experName = guiObjects.experName;
 guiObjects = get(guiObjects.figHandle,'UserData');
 
 %set check 
@@ -41,7 +42,7 @@ lastX = str2double(get(guiObjects.lastX,'String'));
 [procData] = processDataCell(data,dataCell);
 
 % added by SK to hide greyFac on table 17/02/23
-if ~isempty(strfind(guiObjects.experName,'ver4'))
+if ~isempty(strfind(experName,'ver4'))
     procData = rmfield(procData,'greyFac');
 end
 
