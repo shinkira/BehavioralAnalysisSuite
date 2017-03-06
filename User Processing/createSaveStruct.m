@@ -128,6 +128,8 @@ for i=1:2:length(varargin)
             data.maze.delayLength = varargin{i+1};
         case 'MAZELENGTH'
             data.maze.mazeLength = varargin{i+1};
+        case 'STIMINFO'
+            data.stim = varargin{i+1};
     end
 
 end
