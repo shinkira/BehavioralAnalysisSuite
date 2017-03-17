@@ -121,7 +121,11 @@ else
     set(guiObjects.windowPlot,'UserData',gca);
 end
 
-title('Trials Throughout Session')
+if isfield(guiObjects,'title_txt')
+    title(guiObjects.title_txt);
+else
+    title('Trials Throughout Session')
+end
 
 %set callbacks
 set(guiObjects.zoomButton,'Callback',{@zoom_CALLBACK,guiObjects},'enable','on');
