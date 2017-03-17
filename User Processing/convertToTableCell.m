@@ -162,9 +162,9 @@ end
 
 if isfield(procData,'greyFac')
     table.special.data(size(table.special.data,1)+1,1) = procData.greyFac;
-    table.special.data(size(table.special.data,1)+1,1) = procData.netCount;
-%     table.special.data(size(table.special.data,1)+1,1) = procData.stimOn;
-    table.special.names = {'greyFac','netCount'};
+    % table.special.data(size(table.special.data,1)+1,1) = procData.netCount;
+    % table.special.data(size(table.special.data,1)+1,1) = procData.stimOn;
+    table.special.names = {'greyFac'};
 end
 
     % added by SK 04/23/15
@@ -180,9 +180,17 @@ if isfield(procData,'probCrutch')
 end
 
     %Added by VS 03/02/17
-if isfield(procData,'stimOn')
+if isfield(procData,'stimInfo')
     table.special.data(size(table.special.data,1)+1,1) = procData.stimOn;
-    table.special.names = [table.special.names,{'Stim'}];
+    table.special.data(size(table.special.data,1)+1,1) = procData.nRewardsStimOn;
+    table.special.data(size(table.special.data,1)+1,1) = procData.nTrialsStimOn;
+    table.special.data(size(table.special.data,1)+1,1) = procData.percCorrStimOn;
+    table.special.data(size(table.special.data,1)+1,1) = procData.nRewardsStimOff;
+    table.special.data(size(table.special.data,1)+1,1) = procData.nTrialsStimOff;
+    table.special.data(size(table.special.data,1)+1,1) = procData.percCorrStimOff;
+    table.special.names = [table.special.names,{'StimPower','nRewardsStimOn','nTrialsStimOn'},...
+        'percCorrStimOn','nRewardsStimOff','nTrialsStimOff','percCorrStimOff'];
+    
 end
 
 if isfield(procData,'delayLength')

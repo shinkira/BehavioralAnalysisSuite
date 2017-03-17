@@ -48,6 +48,7 @@ guiObjects = plotMazeLength(procData,totTime,guiObjects);
 
 guiObjects.rasterHandle = zeros(size(dataCell));
 guiObjects.shadeHandle = zeros(size(dataCell));
+guiObjects.shadeHandle2 = zeros(size(dataCell));
 rasterLocation = zeros(size(dataCell));
 yBounds = get(gca,'ylim');
 newCellFlag = false;
@@ -91,6 +92,7 @@ for i=1:size(dataCell,2)
     end
     
     halfInd = halfInd/totTime;
+    % correct/error indicator
     if dataCell{i}.result.correct
         guiObjects.shadeHandle(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
             [yBounds(2) yBounds(2) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1))],...
@@ -99,6 +101,18 @@ for i=1:size(dataCell,2)
         guiObjects.shadeHandle(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
             [yBounds(2) yBounds(2) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1))],...
             [0.9 0.36 0.36],'EdgeColor','none');
+    end
+    % stim/non-stim indicator
+    if isfield(dataCell{i},'stim')
+        if dataCell{i}.stim.power > 0
+            guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
+                [yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1))],...
+                [0.5 0 0.9],'EdgeColor','none');
+        else
+            guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
+                [yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1))],...
+                [1,1,1],'EdgeColor','none');
+        end
     end
     guiObjects.rasterHandle(i) = line([ind/totTime ind/totTime],[yBounds(1) yBounds(1)+.8*(yBounds(2)-yBounds(1))]);
     set(guiObjects.rasterHandle(i),'ButtonDownFcn',{@rasterClick_CALLBACK,...

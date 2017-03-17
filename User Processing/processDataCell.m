@@ -128,11 +128,6 @@ if ~isempty(dataCell) && isfield(dataCell{1}.maze,'greyFac') && ~isfield(dataCel
         else
             procData.netCount = NaN;
         end
-%             if isfield(dataCell{1}.result,'stimOn')
-%                 procData.stimOn = dataCell{end}.result.stimOn;
-%             else
-%                 procData.stimOn = NaN;
-%             end
     end
 end
 
@@ -153,11 +148,16 @@ if ~isempty(dataCell) && isfield(dataCell{1}.maze,'probCrutch')
 end
 
 % Add Stim/ No Stim VS 03/02/17
-
-if ~isempty(dataCell) && isfield(dataCell{1}.stim,'power') 
+if ~isempty(dataCell) && isfield(dataCell{1},'stim') 
     if ~multiData && size(data,1) >= 10
         procData.stimOn = dataCell{end}.stim.power;
-%       procData.stimOnAll = data(10,:);
+        procData.stimInfo = dataCell{end}.stim;
+        procData.nTrialsStimOn = sum(findTrials(dataCell,'stim.power>0'));
+        procData.nTrialsStimOff = sum(findTrials(dataCell,'stim.power==0'));
+        procData.nRewardsStimOn = sum(findTrials(dataCell,'result.correct==1; stim.power>0'));
+        procData.nRewardsStimOff = sum(findTrials(dataCell,'result.correct==1; stim.power==0'));
+        procData.percCorrStimOn = 100*procData.nRewardsStimOn./procData.nTrialsStimOn;
+        procData.percCorrStimOff = 100*procData.nRewardsStimOff./procData.nTrialsStimOff;
     end
 end
 
