@@ -163,6 +163,7 @@ end
 if isfield(procData,'greyFac')
     table.special.data(size(table.special.data,1)+1,1) = procData.greyFac;
     table.special.data(size(table.special.data,1)+1,1) = procData.netCount;
+%     table.special.data(size(table.special.data,1)+1,1) = procData.stimOn;
     table.special.names = {'greyFac','netCount'};
 end
 
@@ -176,6 +177,12 @@ end
 if isfield(procData,'probCrutch')
     table.special.data(size(table.special.data,1)+1,1) = procData.probCrutch;
     table.special.names = [table.special.names,{'probMask'}];
+end
+
+    %Added by VS 03/02/17
+if isfield(procData,'stimOn')
+    table.special.data(size(table.special.data,1)+1,1) = procData.stimOn;
+    table.special.names = [table.special.names,{'Stim'}];
 end
 
 if isfield(procData,'delayLength')

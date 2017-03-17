@@ -89,7 +89,6 @@ else
     procData.nRewConds = [];
 end
 
-
 %calculate percent corrects
 procData.percCorr = 100*procData.nRewards/procData.nTrials;
 procData.percCorrConds = 100*(procData.nRewConds./procData.nTrialsConds);
@@ -129,10 +128,15 @@ if ~isempty(dataCell) && isfield(dataCell{1}.maze,'greyFac') && ~isfield(dataCel
         else
             procData.netCount = NaN;
         end
+%             if isfield(dataCell{1}.result,'stimOn')
+%                 procData.stimOn = dataCell{end}.result.stimOn;
+%             else
+%                 procData.stimOn = NaN;
+%             end
     end
 end
 
-%process twoFac
+% process twoFac
 if ~isempty(dataCell) && isfield(dataCell{1}.maze,'twoFac') && ~isfield(dataCell{1}.maze,'delayLength')
     if ~multiData && size(data,1) >= 10
         procData.twoFac = data(10,end);
@@ -148,7 +152,16 @@ if ~isempty(dataCell) && isfield(dataCell{1}.maze,'probCrutch')
     end
 end
 
-%process delay
+% Add Stim/ No Stim VS 03/02/17
+
+if ~isempty(dataCell) && isfield(dataCell{1}.stim,'power') 
+    if ~multiData && size(data,1) >= 10
+        procData.stimOn = dataCell{end}.stim.power;
+%       procData.stimOnAll = data(10,:);
+    end
+end
+
+% process delay
 if ~isempty(dataCell) && isfield(dataCell{1}.maze,'delayLength')
     if ~multiData && size(data,1) >= 10
         procData.delayLength = data(10,end);
@@ -156,7 +169,7 @@ if ~isempty(dataCell) && isfield(dataCell{1}.maze,'delayLength')
     end
 end
 
-%process mazeLength
+% process mazeLength
 if ~isempty(dataCell) && isfield(dataCell{1}.maze,'mazeLength')
     if ~multiData && size(data,1) >= 10
         procData.mazeLength = data(10,end);

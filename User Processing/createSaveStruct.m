@@ -110,6 +110,8 @@ for i=1:2:length(varargin)
             data.maze.twoFac = varargin{i+1};
         case 'PROBCRUTCH' % Added by VS 2/22/17
             data.maze.probCrutch = varargin{i+1};
+        case 'STIMINFO'
+            data.result.stimOn = varargin{i+1}.power;
         case 'NETCOUNT'
             data.result.netCount = varargin{i+1};
         case 'BLOCK' 
