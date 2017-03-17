@@ -14,7 +14,7 @@
 %location of your temporary directory for online processing. 
 %Ex. C:\Data\Ari\
 %
-\Users\Shin\Documents\MATLAB\ShinData\Current Mice\
+\\research.files.med.harvard.edu\Neurobio\HarveyLab\Shin\ShinDataAll\Current Mice\
 %
 %
 %SECTION 2: User initials
@@ -40,7 +40,7 @@ tempStorage
 %be a path to a shared folder on the virmen\behavior computer. 
 %Ex. \\HARVEYRIG1\Temporary
 %
-\Users\Shin\Documents\MATLAB\ShinCode\Temporary
+C:\DATA\Shin\Temporary
 %
 %
 %SECTION 5: Current or Archived Mice
