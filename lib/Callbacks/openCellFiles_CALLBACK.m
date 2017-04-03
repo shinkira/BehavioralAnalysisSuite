@@ -293,16 +293,18 @@ end
 [guiObjects] = plotTrialRasterCell(dataCell,data,procData,guiObjects,dataTrials);
 
 %for opto-stim trials, create a window title
-if isfield(vr,'stim') && ~isfield(guiObjects,'title_txt')
-    title_txt = [];
-    for si = 1:length(vr.stim)
-        if vr.stim(si).prob > 0 && ~strcmp(vr.stim(si).label,'NO_STIM')
-            title_txt = [title_txt,sprintf('%s %dmW (%d,%d,%d,%d)\t',...
-                vr.stim(si).label,vr.stim(si).power,vr.stim(si).sample,vr.stim(si).delay,vr.stim(si).test,vr.stim(si).turn)]; %#ok<AGROW>
+if exist('vr','var')
+    if isfield(vr,'stim') && ~isfield(guiObjects,'title_txt')
+        title_txt = [];
+        for si = 1:length(vr.stim)
+            if vr.stim(si).prob > 0 && ~strcmp(vr.stim(si).label,'NO_STIM')
+                title_txt = [title_txt,sprintf('%s %dmW (%d,%d,%d,%d)\t',...
+                    vr.stim(si).label,vr.stim(si).power,vr.stim(si).sample,vr.stim(si).delay,vr.stim(si).test,vr.stim(si).turn)]; %#ok<AGROW>
+            end
         end
+        title_txt = strrep(title_txt,'_',' ');
+        guiObjects.title_txt = title_txt;
     end
-    title_txt = strrep(title_txt,'_',' ');
-    guiObjects.title_txt = title_txt;
 end
 
 %plot
