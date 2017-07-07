@@ -1,5 +1,6 @@
 function startBAS(userFile,varargin)
 %startBAS.m function to open the GUI
+%this is Ted's branch
 
 if nargin<1
     silent = false;
