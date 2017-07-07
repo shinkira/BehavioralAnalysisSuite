@@ -102,31 +102,20 @@ end
 winData.trialsPerMinute = winData.nTrials./winSize;
 a(3) = toc(tstart);
 
+%{
 %calculate percent correct trial types
-if ~isempty(dataCell) %grabbed this code from ProcessDataCell
-    conditions = 1:length(dataCell{1}.info.conditions);
+conditions = 1:length(dataCell{1}.info.conditions); %grabbed this code from ProcessDataCell
     for i=1:length(conditions)
         nTrialsConds(i) = sum(findTrials(dataCell,['maze.condition == ',num2str(conditions(i))]));
         nRewConds(i) = sum(findTrials(dataCell,['maze.condition == ',num2str(conditions(i)),...
             ';result.correct==1']));
     end
-else
-    nTrialsConds = [];
-    nRewConds = [];
-end
-
-winData.trialPercConds = nRewConds./nTrialsConds;
-%winData.legNames{3} = '
-%winData.trialTypeOne =
-%correct type 1 / length type 1
-%findTrials(dataCell,'result.leftTurn==1') ----- found in processDataCell
-%findTrials(dataCell,'result.whiteTurn==1')
-
-%for i=1:length(conditions)
-        %procData.nTrialsConds(i) = sum(findTrials(dataCell,['maze.condition == ',num2str(conditions(i))]));
-        %procData.nRewConds(i) = sum(findTrials(dataCell,['maze.condition == ',num2str(conditions(i)),...
-          %  ';result.correct==1']));
-    %end
+trialPercConds = nRewConds./nTrialsConds;
+winData.PercBR = trialPercConds(1);
+winData.PercBL = trialPercConds(2);
+winData.PercWR = trialPercConds(3);
+winData.PercWL = trialPercConds(4);
+%}
 
 %get totTime
 winData.totTime = length(1:incSizeInd:size(data,2));
