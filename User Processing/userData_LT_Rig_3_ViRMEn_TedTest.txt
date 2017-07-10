@@ -105,6 +105,14 @@ winData.leftTurns2Towers|1|result.leftTurn==1|maze.twoTowers == 1
 winData.whiteTurns2Towers|1|result.whiteTurn==1|maze.twoTowers == 1
 winData.leftTrials2Towers|1|maze.leftTrial==1|maze.twoTowers == 1
 winData.whiteTrials2Towers|1|maze.leftTrial==1|maze.twoTowers == 1
+winData.blackRight|0|maze.whiteTrial==0|maze.leftTrial==0
+winData.blackLeft|0|maze.whiteTrial==0|maze.leftTrial==1
+winData.whiteRight|0|maze.whiteTrial==1|maze.leftTrial==0
+winData.whiteLeft|0|maze.whiteTrial==1|maze.leftTrial==1
+winData.blackRightCorr|0|maze.whiteTrial==0|maze.leftTrial==0|result.correct==1
+winData.blackLeftCorr|0|maze.whiteTrial==0|maze.leftTrial==1|result.correct==1
+winData.whiteRightCorr|0|maze.whiteTrial==1|maze.leftTrial==0|result.correct==1
+winData.whiteLeftCorr|0|maze.whiteTrial==1|maze.leftTrial==1|result.correct==1
 winData.nTrialsNoDelay|2|true|maze.delay == 0
 winData.nRewardsNoDelay|2|result.correct==1|maze.delay == 0
 winData.leftTurnsNoDelay|2|result.leftTurn==1|maze.delay == 0
@@ -150,6 +158,11 @@ END
 %
 %Ex. 0|winData.percLeft|winData.leftTurns|winData.nTrials
 %
+%7/10/17 - Switched L & R to opposite so that correct direction is indicated on BAS
+Correct BL|0|winData.PercBR|winData.blackRightCorr|winData.blackRight
+Correct BR|0|winData.PercBL|winData.blackLeftCorr|winData.blackLeft
+Correct WL|0|winData.PercWR|winData.whiteRightCorr|winData.whiteRight
+Correct WR|0|winData.PercWL|winData.whiteLeftCorr|winData.whiteLeft
 Left Turns|0|winData.percLeft|winData.leftTurns|winData.nTrials
 Left Trials|0|winData.fracLeft|winData.leftTrials|winData.nTrials
 White Turns|0|winData.percWhite|winData.whiteTurns|winData.nTrials
