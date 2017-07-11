@@ -140,6 +140,7 @@ guiObjects.tableList = uicontrol('FontName','Arial','FontSize',12,'FontWeight','
     'Style','listbox','BackgroundColor',[1 1 1],...
     'String',tableStrings,'Max',length(tableStrings),'Min',1,'Value',[1 2]);
 
+
 %create condition option checks
 guiObjects.condCheck(1) = uicontrol('Units','Normalized',...
     'Position',[0.16 0.275 0.02 0.01],'style','checkbox',...
@@ -258,7 +259,15 @@ guiObjects.suppressWarn = uicontrol('FontName','Arial','FontSize',12,'Background
 guiObjects.print = uicontrol('FontName','Arial','FontSize',13,'ForegroundColor',[0 0 0],...
     'Units','Normalized','Position',[0.65 0.97 0.05 0.02],'String','Print',...
     'Style','pushbutton','BackgroundColor',[0.7969 0.7969 0.7969],'enable','on');
-
+%{
+%create table for bias analysis
+[procData] = processDataCell(data,dataCell,subset);
+percConds = [procData.percBR, procData.percBL, procData.percWR, procData.percWL];
+[~, tbl] = anova1(percConds);
+guiObjects.biasCheck = uitable('FontName','Arial','FontSize',12,'FontWeight','bold',...
+    'ForegroundColor',[0 0 0],'Units','Normalized','BackgroundColor',[1 1 1],...
+    'Position',[0.3 0.27 0.08 0.02],'Data',tbl);
+%}
 %set callbacks
 set(guiObjects.openRecent,'Callback',{@openRecent_CALLBACK,guiObjects}); %set callback with silent flag as 0
 set(guiObjects.openSelected,'Callback',{@openCellFiles_CALLBACK,guiObjects,false}); %set callback with silent flag as 0
@@ -314,5 +323,6 @@ if batch_flag
     callbackCell = get(guiObjects.openSelected,'Callback');
     callbackCell{1}(guiObjects.openSelected,[],callbackCell{2},true,fileToLoad)
 end
+
 
 end

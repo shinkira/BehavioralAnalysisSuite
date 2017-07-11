@@ -100,6 +100,24 @@ procData.percWhite = 100*sum(findTrials(dataCell,'result.whiteTurn==1'))/procDat
 procData.fracLeft = 100*sum(findTrials(dataCell,'maze.leftTrial==1'))/procData.nTrials;
 procData.fracWhite = 100*sum(findTrials(dataCell,'maze.whiteTrial==1'))/procData.nTrials;
 
+%{
+%calculate percent correct for each condition
+BR = sum(findTrials(dataCell,'result.leftTurn==0;maze.whiteTrial==0'));
+BL = sum(findTrials(dataCell,'result.leftTurn==1;maze.whiteTrial==0'));
+WR = sum(findTrials(dataCell,'result.leftTurn==0;maze.whiteTrial==1'));
+WL = sum(findTrials(dataCell,'result.leftTurn==1;maze.whiteTrial==1'));
+BRCorr = sum(findTrials(dataCell,'result.leftTurn==0;maze.whiteTrial==0;result.correct==1'));
+BLCorr = sum(findTrials(dataCell,'result.leftTurn==1;maze.whiteTrial==0;result.correct==1'));
+WRCorr = sum(findTrials(dataCell,'result.leftTurn==0;maze.whiteTrial==1;result.correct==1'));
+WLCorr = sum(findTrials(dataCell,'result.leftTurn==1;maze.whiteTrial==1;result.correct==1'));
+percBR = (BRCorr/BR)*100;
+percBL = (BLCorr/BL)*100;
+percWR = (WRCorr/WR)*100;
+percWL = (WLCorr/WL)*100;
+percConds = [percBR,percBL,percWR,percWL];
+p = anova1(percConds);
+procData.pValueBias = p;
+%}
 %calculate mean+-std trial duration
 procData.meanTrialDur = mean(getCellVals(dataCell,'time.duration'));
 procData.stdTrialDur = std(getCellVals(dataCell,'time.duration'));

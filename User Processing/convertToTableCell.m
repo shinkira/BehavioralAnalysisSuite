@@ -62,6 +62,7 @@ table.special.names = {};
 table.general.data(size(table.general.data,1)+1,1) = procData.nTrials;
 table.general.data(size(table.general.data,1)+1,1) = procData.nRewards;
 table.general.data(size(table.general.data,1)+1,1) = procData.percCorr;
+%table.general.data(size(table.general.data,1)+1,1) = procData.pValueBias;
 table.general.data(size(table.general.data,1)+1,1) = procData.percLeft;
 table.general.data(size(table.general.data,1)+1,1) = procData.fracLeft;
 table.general.data(size(table.general.data,1)+1,1) = procData.percWhite;
