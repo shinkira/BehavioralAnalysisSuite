@@ -233,13 +233,7 @@ elseif multiData
         experName = '';
     end
 else
-    if dataCell{1}.info.mouse <=18
-        guiObjects.userData.initials = 'LT';
-    elseif dataCell{1}.info.mouse <=26
-        guiObjects.userData.initials = 'DA';
-    else
-        guiObjects.userData.initials = 'VS';
-    end
+    guiObjects.userData.initials = getInitials(dataCell{1}.info.mouse);
     anName = [guiObjects.userData.initials,sprintf('%03d',dataCell{1}.info.mouse)];
     if virmenFlag
         experName = func2str(exper.experimentCode);
