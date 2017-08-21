@@ -57,6 +57,9 @@ modDataStore.proc.all = procData;
 %process last x if online
 if online && length(dataCell)>=lastX
     [procDataLastX] = processDataCell(data,dataCell(end+1-lastX:end),true);
+    if ~isempty(strfind(experName,'ver4'))
+        procDataLastX = rmfield(procDataLastX,'greyFac');
+    end
     table{2} = convertToTableCell(procDataLastX);
     table{2}.vals = vals;
     table{1}.lastX = true;
