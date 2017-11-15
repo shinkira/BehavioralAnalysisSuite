@@ -7,7 +7,7 @@ function saveBASfigs(mouseNum,varargin)
     varargin2V(varargin);
     mouseID = sprintf('%s%03d',initials,mouseNum);
     
-    folder_name = sprintf('Z:\\HarveyLab\\Shin\\ShinDataAll\\Current Mice\\%s\\',mouseID);
+    folder_name = sprintf('Z:\\HarveyLab\\Tier1\\Shin\\ShinDataAll\\Current Mice\\%s\\',mouseID);
     file_list = uigetfile([folder_name,'*_Cell.mat'],'MultiSelect','on');
     
     CurrentMiceInd = strfind(folder_name,'\Current Mice');
