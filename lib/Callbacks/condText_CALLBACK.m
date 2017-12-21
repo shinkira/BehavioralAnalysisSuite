@@ -69,6 +69,30 @@ if online && length(dataCell)>=lastX
     modDataStore.datasets.lastX = dataCell(end+1-lastX:end);
     modDataStore.datasetInd.lastX = [zeros(1,length(dataCell)-lastX) ones(1,lastX)];
     modDataStore.proc.lastX = procDataLastX;
+    
+    %%%%%%%%%%%%%%%%%%% Set alarm for low performance %%%%%%%%%%%%%%%%%%%
+    if procDataLastX.percCorr < 0.6
+       Fs = 8192;
+       t = 1:Fs;
+       s = 0.5*cos(1000*t/8192*pi);
+       sound(s', Fs);
+       try
+           if isfield(guiObjects,'t_alert')
+               t_elapsed = etime(clock,guiObjects.t_alert);
+               if t_elapsed > 180
+                    sendAlertEmail(guiObjects);
+                    guiObjects.t_alert = clock;
+               end
+           else
+               sendAlertEmail(guiObjects);
+               guiObjects.t_alert = clock;
+           end
+       catch
+           warning('Email alert could not be sent.')
+       end
+    end
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
 else
     table{1}.lastX = false;
     table{1}.lastXNum = lastX;
