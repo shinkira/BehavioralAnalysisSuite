@@ -14,7 +14,7 @@
 %location of your temporary directory for online processing. 
 %Ex. C:\Data\Ari\
 %
-\\research.files.med.harvard.edu\Neurobio\HarveyLab\Shin\ShinDataAll\Current Mice\
+\\research.files.med.harvard.edu\Neurobio\HarveyLab\Tier1\Shin\ShinDataAll\Current Mice\
 %
 %
 %SECTION 2: User initials

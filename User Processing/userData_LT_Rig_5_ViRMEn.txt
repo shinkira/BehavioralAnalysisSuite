@@ -14,7 +14,7 @@
 %location of your temporary directory for online processing. 
 %Ex. C:\Data\Ari\
 %
-Z:\HarveyLab\Shin\ShinDataAll\Current Mice\
+Z:\HarveyLab\Tier1\Shin\ShinDataAll\Current Mice\
 %
 %
 %SECTION 2: User initials
