@@ -76,8 +76,9 @@ if online && length(dataCell)>=lastX
        t = 1:Fs;
        s = 0.5*cos(1000*t/8192*pi);
        sound(s', Fs);
+       alert_file_name = [guiObjects.anName,'_alert.mat'];
        try
-           if isfield(guiObjects,'t_alert')
+           if exist(alert_file_name,'file')
                t_elapsed = etime(clock,guiObjects.t_alert);
                if t_elapsed > 180
                     sendAlertEmail(guiObjects);
@@ -87,6 +88,8 @@ if online && length(dataCell)>=lastX
            else
                sendAlertEmail(guiObjects);
                fprintf('Email alert sent.\n')
+               t_alert = clock;
+               save(alert_file_name,'t_alert')
                guiObjects.t_alert = clock;
            end
        catch
