@@ -71,7 +71,7 @@ if online && length(dataCell)>=lastX
     modDataStore.proc.lastX = procDataLastX;
     
     %%%%%%%%%%%%%%%%%%% Set alarm for low performance %%%%%%%%%%%%%%%%%%%
-    if procDataLastX.percCorr < 0.6
+    if procDataLastX.percCorr/100 < 0.75
        Fs = 8192;
        t = 1:Fs;
        s = 0.5*cos(1000*t/8192*pi);
@@ -81,10 +81,12 @@ if online && length(dataCell)>=lastX
                t_elapsed = etime(clock,guiObjects.t_alert);
                if t_elapsed > 180
                     sendAlertEmail(guiObjects);
+                    fprintf('Email alert sent.\n')
                     guiObjects.t_alert = clock;
                end
            else
                sendAlertEmail(guiObjects);
+               fprintf('Email alert sent.\n')
                guiObjects.t_alert = clock;
            end
        catch
