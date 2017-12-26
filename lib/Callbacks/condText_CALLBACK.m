@@ -72,7 +72,7 @@ if online && length(dataCell)>=lastX
     modDataStore.proc.lastX = procDataLastX;
     
     %%%%%%%%%%%%%%%%%%% Set alarm for low performance %%%%%%%%%%%%%%%%%%%
-    if procDataLastX.percCorr/100 < 0.95
+    if procDataLastX.percCorr/100 < 0.75
        Fs = 8192;
        t = 1:Fs;
        s = 0.5*cos(1000*t/8192*pi);
