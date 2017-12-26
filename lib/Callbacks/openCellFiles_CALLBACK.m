@@ -138,21 +138,38 @@ else
     
     if online
         if ~exist([guiObjects.userData.tempName,'.mat'],'file') %if live files no longer exist
-            rep = 0;
+            t_elapsed = 10;
+            tstart = tic;
+            esc_pressed = false;
             while 1
-                fprintf('Cannot find MAT file.\n')
-                pause(10);
-                if exist([guiObjects.userData.tempName,'.mat'],'file')
-                    % if a new MAT file is found, resume Live Acq
-                    startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
-                    startStopOnline_CALLBACK(src,evnt,guiObjects); %restart acquisition
-                    break
+                if toc(tstart)>t_elapsed
+                    fprintf('Cannot find MAT file: %d sec elapsed.\n',t_elapsed)
+                    t_elapsed = t_elapsed + 10;
                 end
-                rep = rep+1;
-                if rep>=10
+                
+                % check whether esc key is pressed
+                [keyIsDown, ~, keyCode, ~] = KbCheck;
+                if keyIsDown
+                    fprintf('Some key was pressed.\n')
+                    esc_pressed = find(keyCode)==27;
+                    if esc_pressed
+                        fprintf('ESC key was pressed.\n')
+                    end
+                end
+                
+                % terminate if MAT file cannot be found for 10 min or ESC key was pressed
+                if toc(tstart)>600 || esc_pressed
                     startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
                     cd(origDir);
+                    fprintf('Stop Live Acq.\n')
                     return; % end Live Acq
+                end
+                
+                if exist([guiObjects.userData.tempName,'.mat'],'file')
+                    % if a new MAT file is found, resume Live Acq
+                    guiObjects = startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
+                    guiObjects = startStopOnline_CALLBACK(src,evnt,guiObjects); %restart acquisition
+                    break
                 end
             end
         end
