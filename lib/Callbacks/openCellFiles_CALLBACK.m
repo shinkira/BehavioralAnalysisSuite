@@ -137,10 +137,24 @@ else
     multiData = false; %set multiple datasets flag to false
     
     if online
-        if exist([guiObjects.userData.tempName,'.mat']) == 0 %if live files no longer exist
-            startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
-            cd(origDir);
-            return;
+        if ~exist([guiObjects.userData.tempName,'.mat'],'file') %if live files no longer exist
+            rep = 0;
+            while 1
+                fprintf('Cannot find MAT file.\n')
+                pause(10);
+                if exist([guiObjects.userData.tempName,'.mat'],'file')
+                    % if a new MAT file is found, resume Live Acq
+                    startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
+                    startStopOnline_CALLBACK(src,evnt,guiObjects); %restart acquisition
+                    break
+                end
+                rep = rep+1;
+                if rep>=10
+                    startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
+                    cd(origDir);
+                    return; % end Live Acq
+                end
+            end
         end
         exper = copyExper(filepath,guiObjects.userData.tempName);
 %         reshapeSize = copyReshapeSize(filepath,guiObjects.userData.tempName);
