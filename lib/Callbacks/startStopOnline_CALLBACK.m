@@ -1,4 +1,4 @@
-function startStopOnline_CALLBACK(src,evnt,guiObjects)
+function guiObjects = startStopOnline_CALLBACK(src,evnt,guiObjects)
     
 %get most up to date guiObjects
 guiObjects = get(guiObjects.figHandle,'UserData');
@@ -26,23 +26,20 @@ if isfield(guiObjects,'onlineTimer') %if timer exists, stop it and delete
         guiObjects = rmfield(guiObjects,'dataCell');
     end
 else %otherwise create it!
-    if 1
-        %create timer
-        guiObjects.onlineTimer = timer;
-        set(guiObjects.onlineTimer,'ExecutionMode','fixedSpacing','TimerFcn',...
-            {@openCellFiles_CALLBACK,guiObjects,true,tempCellPath,true},...
-            'Period',updateInt,'Name','Online Timer');
+    %create timer
+    guiObjects.onlineTimer = timer;
+    set(guiObjects.onlineTimer,'ExecutionMode','fixedSpacing','TimerFcn',...
+        {@openCellFiles_CALLBACK,guiObjects,true,tempCellPath,true},...
+        'Period',updateInt,'Name','Online Timer');
 
-        %save guiObjects
-        set(guiObjects.figHandle,'UserData',guiObjects);
+    %save guiObjects
+    set(guiObjects.figHandle,'UserData',guiObjects);
 
-        %change text on button
-        set(guiObjects.startStop,'String','Stop Live Aq');
+    %change text on button
+    set(guiObjects.startStop,'String','Stop Live Aq');
 
-        %start timer
-        start(guiObjects.onlineTimer);
-        
-    end
+    %start timer
+    start(guiObjects.onlineTimer);        
 end
 
 %save guiObjects
