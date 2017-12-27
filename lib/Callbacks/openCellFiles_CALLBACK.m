@@ -138,13 +138,13 @@ else
     
     if online
         if ~exist([guiObjects.userData.tempName,'.mat'],'file') %if live files no longer exist
-            t_elapsed = 10;
+            min_elapsed = 0;
             tstart = tic;
             esc_pressed = false;
             while 1
-                if toc(tstart)>t_elapsed
-                    fprintf('Cannot find MAT file: %d sec elapsed.\n',t_elapsed)
-                    t_elapsed = t_elapsed + 10;
+                if toc(tstart)>min_elapsed*60
+                    fprintf('Cannot find MAT file: %d min elapsed.\n',min_elapsed)
+                    min_elapsed = min_elapsed + 1;
                 end
                 
                 % check whether esc key is pressed
@@ -158,7 +158,7 @@ else
                 end
                 
                 % terminate if MAT file cannot be found for 10 min or ESC key was pressed
-                if toc(tstart)>600 || esc_pressed
+                if min_elapsed>60 || esc_pressed
                     startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
                     cd(origDir);
                     fprintf('Stop Live Acq.\n')
