@@ -48,7 +48,7 @@ end
 
 if addFile
     if ~iscell(filenames)
-        filenames = {filenames};
+        filenames = {filenames};f
     end
     info = get(guiObjects.openSelected,'UserData');
     filepath = {filepath};
@@ -151,9 +151,11 @@ else
                 [keyIsDown, ~, keyCode, ~] = KbCheck;
                 if keyIsDown
                     fprintf('Some key was pressed.\n')
-                    esc_pressed = find(keyCode)==27;
-                    if esc_pressed
-                        fprintf('ESC key was pressed.\n')
+                    if sum(keyCode)==1 % accept single key press only
+                        esc_pressed = find(keyCode)==27;
+                        if esc_pressed
+                            fprintf('ESC key was pressed.\n')
+                        end
                     end
                 end
                 
@@ -167,6 +169,8 @@ else
                 
                 if exist([guiObjects.userData.tempName,'.mat'],'file')
                     % if a new MAT file is found, resume Live Acq
+                    fprintf('Found a new MAT file.\n');
+                    pause(10); % wait for 10 sec
                     guiObjects = startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
                     guiObjects = startStopOnline_CALLBACK(src,evnt,guiObjects); %restart acquisition
                     break
