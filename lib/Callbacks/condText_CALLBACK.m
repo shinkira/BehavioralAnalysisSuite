@@ -83,7 +83,7 @@ if online && length(dataCell)>=lastX
            if exist(fullfile(alert_dir,alert_file),'file')
                load(fullfile(alert_dir,alert_file));
                t_elapsed = etime(clock,t_alert); %#ok<NODEF>
-               if t_elapsed > 180
+               if t_elapsed > 300
                     sendAlertEmail(mouseID);
                     fprintf('Email alert sent.\n')
                     t_alert = clock;
