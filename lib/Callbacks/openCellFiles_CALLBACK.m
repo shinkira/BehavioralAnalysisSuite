@@ -48,7 +48,7 @@ end
 
 if addFile
     if ~iscell(filenames)
-        filenames = {filenames};
+        filenames = {filenames};f
     end
     info = get(guiObjects.openSelected,'UserData');
     filepath = {filepath};
@@ -137,10 +137,45 @@ else
     multiData = false; %set multiple datasets flag to false
     
     if online
-        if exist([guiObjects.userData.tempName,'.mat']) == 0 %if live files no longer exist
-            startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
-            cd(origDir);
-            return;
+        if ~exist([guiObjects.userData.tempName,'.mat'],'file') %if live files no longer exist
+            min_elapsed = 0;
+            tstart = tic;
+            esc_pressed = false;
+            while 1
+                if toc(tstart)>min_elapsed*60
+                    fprintf('Cannot find MAT file: %d min elapsed.\n',min_elapsed)
+                    min_elapsed = min_elapsed + 1;
+                end
+                
+                % check whether esc key is pressed
+                [keyIsDown, ~, keyCode, ~] = KbCheck;
+                if keyIsDown
+                    fprintf('Some key was pressed.\n')
+                    if sum(keyCode)==1 % accept single key press only
+                        esc_pressed = find(keyCode)==27;
+                        if esc_pressed
+                            fprintf('ESC key was pressed.\n')
+                        end
+                    end
+                end
+                
+                % terminate if MAT file cannot be found for 10 min or ESC key was pressed
+                if min_elapsed>60 || esc_pressed
+                    startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
+                    cd(origDir);
+                    fprintf('Stop Live Acq.\n')
+                    return; % end Live Acq
+                end
+                
+                if exist([guiObjects.userData.tempName,'.mat'],'file')
+                    % if a new MAT file is found, resume Live Acq
+                    fprintf('Found a new MAT file.\n');
+                    pause(10); % wait for 10 sec
+                    guiObjects = startStopOnline_CALLBACK(src,evnt,guiObjects); %stop acquisition
+                    guiObjects = startStopOnline_CALLBACK(src,evnt,guiObjects); %restart acquisition
+                    break
+                end
+            end
         end
         exper = copyExper(filepath,guiObjects.userData.tempName);
 %         reshapeSize = copyReshapeSize(filepath,guiObjects.userData.tempName);
