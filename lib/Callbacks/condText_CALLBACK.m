@@ -9,6 +9,7 @@ function condText_CALLBACK(src,evnt,dataCell,data,guiObjects,online)
 
 %get most up to date guiObjects
 experName = guiObjects.experName;
+mouseID = guiObjects.anName;
 guiObjects = get(guiObjects.figHandle,'UserData');
 
 %set check 
@@ -69,6 +70,37 @@ if online && length(dataCell)>=lastX
     modDataStore.datasets.lastX = dataCell(end+1-lastX:end);
     modDataStore.datasetInd.lastX = [zeros(1,length(dataCell)-lastX) ones(1,lastX)];
     modDataStore.proc.lastX = procDataLastX;
+    
+    %%%%%%%%%%%%%%%%%%% Set alarm for low performance %%%%%%%%%%%%%%%%%%%
+    if procDataLastX.percCorr/100 < 0.75
+       Fs = 8192;
+       t = 1:Fs;
+       s = 0.5*cos(1000*t/8192*pi);
+       sound(s', Fs);
+       alert_dir = '\\research.files.med.harvard.edu\Neurobio\HarveyLab\Tier1\Shin\timeAlert';
+       alert_file = [mouseID,'_alert.mat'];
+       try
+           if exist(fullfile(alert_dir,alert_file),'file')
+               load(fullfile(alert_dir,alert_file));
+               t_elapsed = etime(clock,t_alert); %#ok<NODEF>
+               if t_elapsed > 300
+                    sendAlertEmail(mouseID);
+                    fprintf('Email alert sent.\n')
+                    t_alert = clock;
+                    save(fullfile(alert_dir,alert_file),'t_alert')
+               end
+           else
+               sendAlertEmail(mouseID);
+               fprintf('Email alert sent.\n')
+               t_alert = clock;
+               save(fullfile(alert_dir,alert_file),'t_alert')
+           end
+       catch
+           warning('Email alert could not be sent.')
+       end
+    end
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
 else
     table{1}.lastX = false;
     table{1}.lastXNum = lastX;
