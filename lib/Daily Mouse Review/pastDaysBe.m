@@ -17,7 +17,7 @@ if mouseN <= 18
 end
 
 %Finding the mouse folder
-mouse = strcat('Z:/HarveyLab/Tier1/Shin/ShinDataAll/BASfigs/',initials,'0',mouseNum);
+mouse = strcat('\\research.files.med.harvard.edu\Neurobio\HarveyLab\Tier1\Shin\ShinDataAll\BASfigs\',initials,'0',mouseNum);
 
 oldFolder = cd(mouse);
 
