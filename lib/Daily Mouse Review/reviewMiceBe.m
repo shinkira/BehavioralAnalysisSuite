@@ -61,6 +61,7 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+set(gcf,'units','normalized','outerposition',[0 0.02 0.97 .97])
 
 % UIWAIT makes reviewMiceBe wait for user response (see UIRESUME)
 % uiwait(handles.mainFigure);
@@ -129,7 +130,8 @@ subplot('position',[.5 .5 .5 .5])
 imshow(basCrop{3,1});
 subplot('position',[.5 0 .5 .5])
 imshow(basCrop{4,1});
-set(gcf,'units','normalized','outerposition',[-1 0.03 2 .97])
+set(gcf,'units','normalized','outerposition',[0 0.02 0.97 .97])
+% set(gcf,'units','normalized','outerposition',[-1 0.03 2 .97])
 
 
 % --- Executes during object creation, after setting all properties.
