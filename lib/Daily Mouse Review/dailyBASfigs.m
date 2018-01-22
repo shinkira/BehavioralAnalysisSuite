@@ -8,15 +8,7 @@ mouse_list = 40:60;
 
 for mi = mouse_list
     
-    if mi<=18
-        initials = 'LT';
-    elseif mi <= 26
-        initials = 'DA';
-    elseif mi <= 46
-        initials = 'VS';
-    else
-        initials = 'TL';
-    end    
+    initials = getInitials(mi);  
     if nargin==0
         mydate = datestr(now,'yymmdd');
     else
