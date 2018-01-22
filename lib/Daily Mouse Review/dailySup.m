@@ -1,10 +1,3 @@
-% function dailySup(day)
-% parent_folder = 'Z:\\HarveyLab\\Shin\\ShinDataAll\\Current Mice\';
-% parent_dir = dir(fullfile(parent_folder));
-% 
-% for oi = 1:length(parent_dir)
-%     id = parent_dir(oi).name;
-
 function dailySup(mice_vec)
 
 if strcmp(mice_vec,'norm')
@@ -12,7 +5,7 @@ if strcmp(mice_vec,'norm')
 end
 
 for mi = mice_vec
-    initials = getInitials;
+    initials = getInitials(mi);
     folder_name = sprintf('Z:\\HarveyLab\\Tier1\\Shin\\ShinDataAll\\Current Mice\\%s%03d\\',initials,mi);
     file_list = dir(fullfile(folder_name,'*Cell*.mat'));
     correctAll = [];
