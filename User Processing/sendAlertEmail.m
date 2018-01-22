@@ -11,4 +11,5 @@ function sendAlertEmail(mouseID)
     email_title = sprintf('%s help request',mouseID);
     email_msg = sprintf('I''m confused now... Help me!\n-%s',mouseID);
     sendmail('shinkira3@gmail.com',email_title,email_msg);
+    sendmail('deluisi.j@husky.neu.edu',email_title,email_msg);
 end
