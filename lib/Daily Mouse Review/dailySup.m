@@ -1,7 +1,7 @@
 function dailySup(mice_vec)
 
 if strcmp(mice_vec,'norm')
-   mice_vec = [40,47,48,49,51,52,53,55:62];
+   mice_vec = [40,47,48,49,51,52,53,55:64];
 end
 
 for mi = mice_vec

@@ -7,13 +7,15 @@ function basCrop = pastDaysBe(mouseNum)
 %Getting the initials for the mouse
 mouseN = str2num(mouseNum);
 if mouseN <= 18
-        initials = 'LT';
-    elseif mouseN <= 26
-        initials = 'DA';
-    elseif mouseN <= 46
-        initials = 'VS';
-    else
-        initials = 'TL';
+    initials = 'LT';
+elseif mouseN <= 26
+    initials = 'DA';
+elseif mouseN <= 46
+    initials = 'VS';
+elseif mouseN <=58
+    initials = 'TL';
+else
+    initials = 'JD';
 end
 
 %Finding the mouse folder
