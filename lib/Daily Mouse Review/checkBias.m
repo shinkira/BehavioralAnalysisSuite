@@ -36,7 +36,7 @@ maxGreyFac = maxGreyFac(accIndex:length(maxGreyFac));
 
 %Smoothing data, second parameter affects smoothing amount.
 for i=1:4
-accuracyData(:,i) = smooth(accuracyData(:,i),5);
+accuracyData(:,i) = smoothdata(accuracyData(:,i),5);
 end
 
 %Prepare variables for boxplot of performance in last 5 sessions.
