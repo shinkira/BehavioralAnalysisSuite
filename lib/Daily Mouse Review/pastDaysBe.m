@@ -7,13 +7,15 @@ function basCrop = pastDaysBe(mouseNum)
 %Getting the initials for the mouse
 mouseN = str2num(mouseNum);
 if mouseN <= 18
-        initials = 'LT';
-    elseif mouseN <= 26
-        initials = 'DA';
-    elseif mouseN <= 46
-        initials = 'VS';
-    else
-        initials = 'TL';
+    initials = 'LT';
+elseif mouseN <= 26
+    initials = 'DA';
+elseif mouseN <= 46
+    initials = 'VS';
+elseif mouseN <=58
+    initials = 'TL';
+else
+    initials = 'JD';
 end
 
 %Finding the mouse folder
@@ -31,6 +33,7 @@ pastDayTimes = dateshift(day,'start','day',-6:0);
 %subsequent dates will be pushed back by two days so that only weekdays are
 %included.
 check = 0;
+existCount = 0;
 while check == 0
     for i=7:-1:1
          if isweekend(pastDayTimes(i)) == 1
@@ -47,10 +50,14 @@ while check == 0
     check = 1;
     
     for j=7:-1:1
-         if exist(pastDays{j}) == 0
-         pastDayTimes(j:-1:1) = dateshift(pastDayTimes(j:-1:1),'start','day',-1);
-         check = 0;
-         end
+        if existCount>5
+            break
+        end
+        if exist(pastDays{j}) == 0
+            existCount = existCount+1;
+            pastDayTimes(j:-1:1) = dateshift(pastDayTimes(j:-1:1),'start','day',-1);
+            check = 0;
+        end
     end
 end
 
