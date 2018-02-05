@@ -5,18 +5,8 @@ function basCrop = pastDaysBe(mouseNum)
 %reviewMice.m
 
 %Getting the initials for the mouse
-mouseN = str2num(mouseNum);
-if mouseN <= 18
-    initials = 'LT';
-elseif mouseN <= 26
-    initials = 'DA';
-elseif mouseN <= 46
-    initials = 'VS';
-elseif mouseN <=58
-    initials = 'TL';
-else
-    initials = 'JD';
-end
+mouseN = str2double(mouseNum);
+initials = getInitials(mouseN);
 
 %Finding the mouse folder
 mouse = strcat('\\research.files.med.harvard.edu\Neurobio\HarveyLab\Tier1\Shin\ShinDataAll\BASfigs\',initials,'0',mouseNum);
