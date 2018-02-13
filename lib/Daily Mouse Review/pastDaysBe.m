@@ -25,11 +25,20 @@ pastDayTimes = dateshift(day,'start','day',-6:0);
 check = 0;
 existCount = 0;
 while check == 0
-    for i=7:-1:1
-         if isweekend(pastDayTimes(i)) == 1
-             pastDayTimes(i:-1:1) = dateshift(pastDayTimes(i:-1:1),'start','day',-2);
-             i=1;
-         end
+    for i=7:-1:2
+        if isweekend(pastDayTimes(i)) == 1
+            pastDayTimes(i:i-1:i+1) = dateshift(pastDayTimes(i:i-1:i+1),'dayofweek','Friday','previous');
+            i=1;
+        elseif pastDayTimes(i) == pastDayTimes(i-1)
+            pastDayTimes(i-1:-1:2) = dateshift(pastDayTimes(i-1:-1:2),'start','day',-1);
+            i=1;
+            if pastDayTimes(1) >= pastDayTimes(2)
+                pastDayTimes(1) = dateshift(pastDayTimes(1),'start','day',-1);
+                if isweekend(pastDayTimes(1))
+                    pastDayTimes(1) = dateshift(pastDayTimes(1),'dayofweek','Friday','previous');
+                end
+            end
+        end
     end
 
     %Cleaning up the pastDays variable to access the .png images
