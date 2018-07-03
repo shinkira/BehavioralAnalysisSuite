@@ -10,60 +10,41 @@ initials = getInitials(mouseN);
 
 %Finding the mouse folder
 mouse = strcat('\\research.files.med.harvard.edu\Neurobio\HarveyLab\Tier1\Shin\ShinDataAll\BASfigs\',initials,'0',mouseNum);
+picList = dir(mouse);
+
+function latestfile = getxfromlatestfile(directory,x)
+%This function returns the latest file from the directory passsed as input
+%argument
+
+%Get the directory contents
+dirc = dir(directory);
+
+%Filter out all the folders and find only files with .png
+dirc = dirc(find(~cellfun(@isdir,{dirc(:).name})));
+dir_p = dirc(find(~cellfun(@isempty,strfind({dirc(:).name},'.png'))));
+
+%I contains the sorted list of files from latest to earliest
+[A,I] =sort([dir_p(:).datenum],'descend');
+
+if ~isempty(I)
+    latestfile = dir_p(length(I)-x).name;
+end
+
+end
 
 oldFolder = cd(mouse);
 
-%Getting the past four days in a variable
-day = datetime('today');
-pastDayTimes = dateshift(day,'start','day',-6:0);
-%pastDayTimes = dateshift(day,'start','day',-3:0); in pastDaysAf
-
-
-%Obtaining past four training days. If a weekend date is encountered, the
-%subsequent dates will be pushed back by two days so that only weekdays are
-%included.
-check = 0;
-existCount = 0;
-while check == 0
-    for i=7:-1:1
-         if isweekend(pastDayTimes(i)) == 1
-             pastDayTimes(i:-1:1) = dateshift(pastDayTimes(i:-1:1),'start','day',-2);
-             i=1;
-         end
-    end
-
-    %Cleaning up the pastDays variable to access the .png images
-    pastDays = pastDayTimes(1:7)';
-    pastDays = datestr(pastDays,'yymmdd');
-    pastDays = strcat(initials,'0',mouseNum,'_',pastDays,'.png');
-    pastDays = cellstr(pastDays);
-    check = 1;
-    
-    for j=7:-1:1
-        if existCount>5
-            break
-        end
-        if exist(pastDays{j}) == 0
-            existCount = existCount+1;
-            pastDayTimes(j:-1:1) = dateshift(pastDayTimes(j:-1:1),'start','day',-1);
-            check = 0;
-        end
-    end
-end
-
-pastDays = flip(pastDays);
-
-%Looping over each image and cropping for figure
-k = 1; % counter
+% arranging images
+k = 1;
 for i=1:7
     if k>4
         break
     end
-    if exist(pastDays{i,1})
-        bas{k,1} = imread(pastDays{i,1});
-        basCrop{k,1} = imcrop(bas{i,1},[0.5 0.5 1328 579]);
-        k = k+1;        
-    end
+    j = i-1;
+    img = getxfromlatestfile(mouse,j);
+    bas{k,1} = imread(img);
+    basCrop{k,1} = imcrop(bas{i,1},[0.5 0.5 1328 579]);
+    k = k+1;
 end
 
 %Returning to original directory location
