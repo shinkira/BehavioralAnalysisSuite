@@ -2,7 +2,7 @@ function dailyBASfigs(varargin)
 
 % default params
 userFile = 'userData_SK_Rig_5_ViRMEn.txt';
-mouse_list = 47:69;
+mouse_list = 47:70;
 % mydate = datestr(now,'yymmdd');
 % mydate = num2str(str2double(mydate)-1);
 
