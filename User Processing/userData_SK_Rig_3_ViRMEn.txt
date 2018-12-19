@@ -40,7 +40,7 @@ tempStorage
 %be a path to a shared folder on the virmen/behavior computer. 
 %Ex. \\HARVEYRIG1\Temporary
 %
-\\HARVYELAB-RESSC\Data\Shin\Temporary
+\\10.119.88.171\Data\Shin\Temporary
 %\\10.119.88.87\Data\Shin\Temporary
 %
 %
