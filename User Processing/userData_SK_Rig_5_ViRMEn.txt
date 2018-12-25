@@ -1,7 +1,7 @@
-%This file provides the user data for the Behavior Analysis Suite. Any 
-%new user to the suite will have to first modify this file with information 
+%This file provides the user data for the Behavior Analysis Suite. Any
+%new user to the suite will have to first modify this file with information
 %necessary for the software to run. This file is divided into several sections
-%as highlighted by '%' comment indicators (as in Matlab). Underneath each 
+%as highlighted by '%' comment indicators (as in Matlab). Underneath each
 %section is a space for user input. Please insert user strings in these spaces,
 %using the delimeters designated by the comments above each section. The software
 %will only read elements in this file on lines which do not start with %.
@@ -9,9 +9,9 @@
 %ASM 9/26/12
 %
 %SECTION I: User Path
-%Below this comment, input the path of stored data. This should be 
-%the path before any subdivision to current or archived and should be the 
-%location of your temporary directory for online processing. 
+%Below this comment, input the path of stored data. This should be
+%the path before any subdivision to current or archived and should be the
+%location of your temporary directory for online processing.
 %Ex. C:\Data\Ari\
 %
 \\research.files.med.harvard.edu\Neurobio\HarveyLab\Tier1\Shin\ShinDataAll\Current Mice\
@@ -25,29 +25,29 @@ LT
 %
 %
 %SECTION 3: Temporary Storage Name
-%Below this comment, input the base name of the temporary storage files. 
-%Note that there must be three of these files - one should be a dat file, 
-%one should be a mat file, and the third should be an additional mat file 
+%Below this comment, input the base name of the temporary storage files.
+%Note that there must be three of these files - one should be a dat file,
+%one should be a mat file, and the third should be an additional mat file
 %with Cell appended to the end (tempStorageCell.mat). This likely won't need
-%to be changed. 
+%to be changed.
 %Ex. tempStorage
 %
 tempStorage
 %
 %
 %SECTION 4: Temporary Path
-%Below this comment, input the path of the temporary folder. Note this should 
-%be a path to a shared folder on the virmen/behavior computer. 
+%Below this comment, input the path of the temporary folder. Note this should
+%be a path to a shared folder on the virmen/behavior computer.
 %Ex. \\HARVEYRIG1\Temporary
 %
-\\10.119.88.75\c\DATA\Shin\Temporary
+\\10.119.88.171\DATA\Shin\Temporary
 %\\HARVEYadmin-PC\c\DATA\Shin\Temporary
 %
 %
 %SECTION 5: Current or Archived Mice
-%Below this comment, input the two folder names for current/archived mice on 
+%Below this comment, input the two folder names for current/archived mice on
 %separate lines. The first folder should correspond to currently used animals
-%while the second folder should correspond to archived animals. 
+%while the second folder should correspond to archived animals.
 %DO NOT REMOVE THE 'END' STRING AT THE END OF THIS SECTION
 %Ex. Current Mice
 %Ex. Archived Mice
@@ -58,13 +58,13 @@ END
 %
 %
 %SECTION 6: Sliding Window Flags
-%Below this comment, input each flag which you will use separated by new lines. 
-%These flags should be conditions which can be fed into an if statement to 
-%specify whether or not to tabulate specific variables as designated in the 
+%Below this comment, input each flag which you will use separated by new lines.
+%These flags should be conditions which can be fed into an if statement to
+%specify whether or not to tabulate specific variables as designated in the
 %next section. DO NOT REMOVE THE 'END' STRING AT THE END OF THIS SECTION
 %Ex. isfield(dataCell{1}.maze,'tower')
-%In this example, the conditinal flag is that the field tower must exist in 
-%the first cell of the data. 
+%In this example, the conditinal flag is that the field tower must exist in
+%the first cell of the data.
 %
 isfield(dataCell{1}.maze,'twoTowers')
 isfield(dataCell{1}.maze,'delay')
@@ -79,16 +79,16 @@ END
 %For each variable, the first argument should be the name of the variable,
 %starting with 'winData.'. The second argument should be whether or not a flag
 %applies to the variable. If no flag applies, this argument should be 0. If
-%a flag does apply, this argument should be the number of the flag. The 
+%a flag does apply, this argument should be the number of the flag. The
 %remaining arguments (there is a limit of 10) should be cell specifiers in the format
-%'result.correct == 1'. These will be combined to generate the variable. 
+%'result.correct == 1'. These will be combined to generate the variable.
 %DO NOT REMOVE THE 'END' STRING AT THE END OF THIS SECTION
 %
 %Ex. winData.leftTurns2Towers|1|result.leftTurn==1|maze.twoTowers == 0
 %In this example, the variable winData.leftTurns2Towers is created, the first
-%flag applies to it, and it will tabulate all trials in which the mouse turned 
+%flag applies to it, and it will tabulate all trials in which the mouse turned
 %left, as described by result.leftTurn==1, and in which there was no tower,
-%as described by maze.twoTowers == 0. 
+%as described by maze.twoTowers == 0.
 %
 winData.leftTurns|0|result.leftTurn==1
 winData.whiteTurns|0|result.whiteTurn==1
@@ -134,17 +134,17 @@ END
 %
 %
 %SECTION 8: Percentage Calculations for Sliding Window
-%Below this comment, input the percentage calculations. 
-%The first argument should be the display name of the 
+%Below this comment, input the percentage calculations.
+%The first argument should be the display name of the
 %variable in the GUI. The second argument should be the flag number as in
 % section 7 (0 if no flag applied, otherwise
-%the number of the flag).The third argument should be the name of the 
+%the number of the flag).The third argument should be the name of the
 %percentage variable, starting with 'winData.' The fourth argument should be
-%the numerator, and the fifth the denominator. These should be separated by the 
-%'|' delimiter, with each separate calculation on a new line. Note that 
+%the numerator, and the fifth the denominator. These should be separated by the
+%'|' delimiter, with each separate calculation on a new line. Note that
 %variables in the numerator and denominator MUST be defined in section 7 above,
-%UNLESS they are winData.nTrials, which represents the total number of trials 
-%in the window, or winData.nRewards, which represents the total number of 
+%UNLESS they are winData.nTrials, which represents the total number of trials
+%in the window, or winData.nRewards, which represents the total number of
 %rewards within the window. These two variables are predefined by the software
 %The standard percent correct (rewards/trials) calculation is built in.
 %DO NOT REMOVE THE 'END' STRING AT THE END OF THIS SECTION.
