@@ -43,7 +43,8 @@ for i=1:7
     j = i-1;
     img = getxfromlatestfile(mouse,j);
     bas{k,1} = imread(img);
-    basCrop{k,1} = imcrop(bas{i,1},[0.5 0.5 1328 579]);
+    [v_size,h_size,~] = size(bas{k,1});
+    basCrop{k,1} = imcrop(bas{i,1},[1 1 h_size v_size*0.7]);
     k = k+1;
 end
 
