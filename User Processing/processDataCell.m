@@ -121,8 +121,13 @@ end
 %process greyFac
 if ~isempty(dataCell) && isfield(dataCell{1}.maze,'greyFac') && ~isfield(dataCell{1}.maze,'delayLength')
     if ~multiData && size(data,1) >= 10
-        procData.greyFac = data(10,end);
-        procData.greyFacAll = data(10,:);
+        if strcmp(dataCell{1}.info.name,'GreyMazeJD') % SK 19/01/08
+            procData.greyFac = data(15,end);
+            procData.greyFacAll = data(15,:);
+        else
+            procData.greyFac = data(10,end);
+            procData.greyFacAll = data(10,:);
+        end
         if isfield(dataCell{1}.result,'netCount')
             procData.netCount = dataCell{end}.result.netCount;
         else
