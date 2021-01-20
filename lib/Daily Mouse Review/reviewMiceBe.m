@@ -145,7 +145,8 @@ function mouseNumPopup_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-set(hObject,'String',{'47';'59';'60';'69';'70';'71';'72';'73';'74'});
+set(hObject,'String',{'82';'83';'84';'86';'87';'88';'89';'90'});
+% set(hObject,'String',{'47';'59';'60';'69';'70';'71';'72';'73';'74'});
 
 
 % --- Executes when mainFigure is resized.

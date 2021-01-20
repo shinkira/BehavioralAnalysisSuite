@@ -2,7 +2,7 @@ function dailyBASfigs(varargin)
 
 % default params
 userFile = 'userData_SK_Rig_5_ViRMEn.txt';
-mouse_list = 47:74;
+mouse_list = 82:90; %47:74;
 % mydate = datestr(now,'yymmdd');
 % mydate = num2str(str2double(mydate)-1);
 
@@ -19,7 +19,9 @@ for mi = mouse_list
     folder_name = sprintf('Z:\\HarveyLab\\Tier1\\Shin\\ShinDataAll\\Current Mice\\%s\\',mouseID);
     file_list = dir(fullfile(folder_name,sprintf('*%s_Cell*.mat',mydate)));
     CurrentMiceInd = strfind(folder_name,'\Current Mice');
-    figpath = [folder_name(1:CurrentMiceInd),'BASfigs\',mouseID,'\'];
+    figpath = ['E:\Dropbox (HMS)\BASfigs\',mouseID,'\'];
+    % figpath = [folder_name(1:CurrentMiceInd),'BASfigs\',mouseID,'\'];
+    
     for fi = 1:length(file_list)
         file_name = [folder_name,file_list(fi).name];
         if strfind(file_name,mydate)

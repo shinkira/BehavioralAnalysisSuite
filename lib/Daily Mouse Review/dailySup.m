@@ -1,7 +1,9 @@
 function dailySup(mice_vec)
 
 if strcmp(mice_vec,'norm')
-   mice_vec = [47,48,51,52,59,60,67:74];
+   % mice_vec = [47,48,51,52,59,60,67:74];
+   mice_vec = [82,83,84,86,87,88,89,90];
+   init_weight = [30.8, 31.2, 29.6, 32.5, 31.3, 33.6];
 end
 
 for mi = mice_vec
@@ -28,7 +30,7 @@ for mi = mice_vec
     else
         total_trials = length(correctAll);
         total_feedings = sum(correctAll);
-        if total_feedings < 170
+        if total_feedings < 170 %170
                need_feed = (170 - total_feedings) * 5;
                fprintf('\t%d uL (%d/%d)\n',need_feed,total_feedings,total_trials);
         else
