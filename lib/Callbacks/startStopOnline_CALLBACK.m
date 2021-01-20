@@ -20,7 +20,7 @@ if isfield(guiObjects,'onlineTimer') %if timer exists, stop it and delete
     set(guiObjects.openSelected,'enable','on'); %reenable open
     set(guiObjects.openRecent,'enable','on'); %reenable open
     set(guiObjects.modData,'String',{'All Data'},'Value',1);
-    set(guiObjects.startStop,'String','Start Live Aq');
+    set(guiObjects.startStop,'String','Start');
     if isfield(guiObjects,'data')
         guiObjects = rmfield(guiObjects,'data');
         guiObjects = rmfield(guiObjects,'dataCell');
@@ -36,7 +36,7 @@ else %otherwise create it!
     set(guiObjects.figHandle,'UserData',guiObjects);
 
     %change text on button
-    set(guiObjects.startStop,'String','Stop Live Aq');
+    set(guiObjects.startStop,'String','Stop');
 
     %start timer
     start(guiObjects.onlineTimer);        
