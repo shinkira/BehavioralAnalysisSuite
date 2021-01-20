@@ -40,8 +40,8 @@ tempStorage
 %be a path to a shared folder on the virmen/behavior computer. 
 %Ex. \\HARVEYRIG1\Temporary
 %
-% \\10.119.88.89\Shin\Temporary
-\\ANGLE-BEHAV-RIG\Shin\Temporary
+\\10.119.88.59\c\DATA\Shin\Temporary
+% \\ANGLE-BEHAV-RIG\Shin\Temporary
 %
 %
 %SECTION 5: Current or Archived Mice
