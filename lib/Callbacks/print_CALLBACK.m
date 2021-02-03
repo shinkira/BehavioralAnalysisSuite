@@ -11,6 +11,13 @@ function print_CALLBACK(src,evnt,guiObjects)
         loadedFileName = guiObjects.animalPopup.UserData.fileCell{guiObjects.animalPopup.UserData.loadedFile};
         CellInd = strfind(loadedFileName,'_Cell');
         fig_name = loadedFileName(1:CellInd-1);
+        % When multiple sessions are run on one day, loadedFileName have number extension
+        % if loadedFileName has a number extension, then append it to the fig_name
+        C = strsplit(loadedFileName,{'_','.'});
+        if length(C)==5
+            num_ext = C{4};
+            fig_name = [fig_name,'_',num_ext];
+        end
     else % live data
         mouseID = guiObjects.figHandle.UserData.anName;
         fig_name = [mouseID,'_',guiObjects.figHandle.UserData.dateName];
@@ -38,10 +45,8 @@ function print_CALLBACK(src,evnt,guiObjects)
     end
     if ~exist(figpath2_dropbox,'dir')
         mkdir(figpath2_dropbox);
-    end
-    
-    
-    
+    end    
+        
     % export_fig(gcf,[figpath,fig_name],'-png')
     print(gcf,[figpath,fig_name,'.png'],'-dpng');
     copyfile([figpath,fig_name,'.png'],[figpath2,fig_name,'.png'])
