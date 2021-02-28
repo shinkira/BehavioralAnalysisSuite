@@ -334,7 +334,9 @@ if exist('vr','var')
                     vr.stim(si).label,vr.stim(si).power)];
             end
         end
-        title_txt = strrep(title_txt,'_',' ');
+        if ~isempty(title_txt)
+            title_txt = strrep(title_txt,'_',' ');
+        end
         guiObjects.title_txt = title_txt;
     end
 end
