@@ -25,7 +25,7 @@ else
 end
 
 %plot trial conditions
-guiObjects.trialRaster = subplot('Position',[0.05 0.65 0.9 0.03]);
+guiObjects.trialRaster = subplot('Position',[0.05 0.73 0.9 0.06]); % [0.05 0.65 0.9 0.03]
 cla reset;
 xlabel('Window End Time'); %set xlabel
 set(gca,'YTickLabel','','YTick',[]); %delete y ticks
@@ -123,7 +123,7 @@ end
 xlim([0 1]);
 xTickVals = num2cell(timeVec(round(linspace(1,length(timeVec),11))));
 xTickDates = cellfun(@(x) datestr(x,'HH:MM:SS'),xTickVals,'UniformOutput',false);
-set(gca,'XTickLabel',xTickDates);
+set(gca,'XTickLabel',xTickDates,'TickLength',[0.005 0.01]);
 
 %reverse object draw order
 set(gca,'children',flipud(get(gca,'children')));
