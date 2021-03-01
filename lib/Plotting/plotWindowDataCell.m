@@ -36,7 +36,7 @@ elseif (~ismember(1,selVals) && ismember(2,selVals)) %if only trials chosen and 
     delete(h1);
 end
 
-plot([0 1.01],[100,100],'k-'); % plot a top edge of the window
+plot([0 1.005],[100,100],'k-'); % plot a top edge of the window
 
 selValsSpec = selVals(selVals>2); %get all values greater than 2
 load('winPlotColors.mat','winPlotColors'); % load colormap
@@ -64,9 +64,9 @@ end
 
 if ismember(2,selVals)
     set(get(ax(1),'Ylabel'),'String','Percent','Color','k');
-    set(ax(1),'ylim',[0 100],'YColor','k','ytick',0:10:100,'xlim',[0 1.01],'box','off');
+    set(ax(1),'ylim',[0 100],'YColor','k','ytick',0:10:100,'xlim',[0 1.005],'box','off');
     set(get(ax(2),'Ylabel'),'String','Trials Per Minute','Color','r');
-    set(ax(2),'ylim',[0 10],'ytick',0:1:10,'yticklabel',0:1:10,'YColor','r','xlim',[0 1.01],'box','off');
+    set(ax(2),'ylim',[0 10],'ytick',0:1:10,'yticklabel',0:1:10,'YColor','r','xlim',[0 1.005],'box','off');
     set(ax(1),'XTickLabel','')
     set(ax(2),'XTickLabel','')
     h.ax = ax;
@@ -76,7 +76,7 @@ else
     ylabel('Percent');
     ylim([0 100]);
     set(gca,'ytick',0:10:100);
-    xlim([0 1.01]);
+    xlim([0 1.005]);
     set(gca,'XTickLabel','');
     set(guiObjects.windowPlot,'UserData',gca);
 end

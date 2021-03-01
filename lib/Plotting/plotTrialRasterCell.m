@@ -121,7 +121,7 @@ for i=1:size(dataCell,2)
     rasterLocation(i) = ind/totTime;
     set(guiObjects.rasterHandle(i),'Color',cmapCustom(dataCell{i}.maze.condition,:),'LineWidth',3);
 end
-xlim([0 1.01]);
+xlim([0 1.005]);
 xTickVals = num2cell(timeVec(round(linspace(1,length(timeVec),11))));
 xTickDates = cellfun(@(x) datestr(x,'HH:MM:SS'),xTickVals,'UniformOutput',false);
 set(gca,'XTickLabel',xTickDates,'TickLength',[0.005 0.01]);
@@ -135,7 +135,7 @@ if isfield(guiObjects,'trialCondLegend') && ishandle(guiObjects.trialCondLegend)
 end
 guiObjects.trialCondLegend = subplot('Position',[0.02 0.6025 0.9 0.0175]);
 set(gca,'visible','off');
-xlim([0 1.01]);
+xlim([0 1.005]);
 for i = 1:size(cmapCustom,1)
     line([i/24 i/24],[0 1],'Color',cmapCustom(i,:),'LineWidth',3);
     text(.0417*i+.01,.5,num2str(i),'Color',cmapCustom(i,:),'HorizontalAlignment','Left');
