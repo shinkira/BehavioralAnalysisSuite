@@ -67,8 +67,8 @@ if ismember(2,selVals)
     set(ax(1),'ylim',[0 100],'YColor','k','ytick',0:10:100,'xlim',[0 1.005],'box','off');
     set(get(ax(2),'Ylabel'),'String','Trials Per Minute','Color','r');
     set(ax(2),'ylim',[0 10],'ytick',0:1:10,'yticklabel',0:1:10,'YColor','r','xlim',[0 1.005],'box','off');
-    set(ax(1),'XTickLabel','')
-    set(ax(2),'XTickLabel','')
+    set(ax(1),'XTickLabel','','TickLength',[0.003 0.01])
+    set(ax(2),'XTickLabel','','TickLength',[0.003 0.01])
     h.ax = ax;
     h.h2 = h2;
     set(guiObjects.windowPlot,'UserData',h);
@@ -77,7 +77,7 @@ else
     ylim([0 100]);
     set(gca,'ytick',0:10:100);
     xlim([0 1.005]);
-    set(gca,'XTickLabel','');
+    set(gca,'XTickLabel','','TickLength',[0.003 0.01]);
     set(guiObjects.windowPlot,'UserData',gca);
 end
 
