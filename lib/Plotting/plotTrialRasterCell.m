@@ -26,7 +26,7 @@ else
 end
 
 %plot trial conditions
-guiObjects.trialRaster = subplot('Position',[0.05 0.65 0.9 0.06]); % [0.05 0.65 0.9 0.03]
+guiObjects.trialRaster = subplot('Position',[0.05 0.66 0.9 0.05]); % [0.05 0.65 0.9 0.03]
 cla reset;
 xlabel('Window End Time'); %set xlabel
 set(gca,'YTickLabel','','YTick',[]); %delete y ticks
