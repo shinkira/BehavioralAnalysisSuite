@@ -13,7 +13,7 @@ warning('off','MATLAB:legend:PlotEmpty');
 xTimes = 1:size(winData.nTrials,2);
 xTimes = xTimes/winData.totTime;
 
-guiObjects.windowPlot = subplot('Position',[0.05 0.8 0.9 0.14]); % [0.05 0.69 0.9 0.25]
+guiObjects.windowPlot = subplot('Position',[0.05 0.72 0.9 0.22]); % [0.05 0.69 0.9 0.25]
 cla reset;
 
 selVals = get(guiObjects.winDisp,'Value');
@@ -36,7 +36,7 @@ elseif (~ismember(1,selVals) && ismember(2,selVals)) %if only trials chosen and 
     delete(h1);
 end
 
-plot([0 1],[100,100],'k-');
+plot([0 1],[100,100],'k-'); % plot a top edge of the window
 
 selValsSpec = selVals(selVals>2); %get all values greater than 2
 load('winPlotColors.mat','winPlotColors'); % load colormap
@@ -66,7 +66,7 @@ if ismember(2,selVals)
     set(get(ax(1),'Ylabel'),'String','Percent','Color','k');
     set(ax(1),'ylim',[0 100],'YColor','k','ytick',0:10:100,'xlim',[0 1],'box','off');
     set(get(ax(2),'Ylabel'),'String','Trials Per Minute','Color','r');
-    set(ax(2),'ylim',[0 8],'ytick',0:1:8,'yticklabel',0:1:8,'YColor','r','xlim',[0 1],'box','off');
+    set(ax(2),'ylim',[0 10],'ytick',0:1:10,'yticklabel',0:1:10,'YColor','r','xlim',[0 1],'box','off');
     set(ax(1),'XTickLabel','')
     set(ax(2),'XTickLabel','')
     h.ax = ax;
