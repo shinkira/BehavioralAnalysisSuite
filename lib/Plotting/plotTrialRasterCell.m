@@ -142,6 +142,19 @@ for i = 1:size(cmapCustom,1)
     text(.0417*i+.01,.5,num2str(i),'Color',cmapCustom(i,:),'HorizontalAlignment','Left');
 end
 
+
+stim_area_set = {'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'};
+for i = 1:8
+    stimColor = getStimColor(stim_area_set{i});
+    legend_txt = stim_area_set{i};
+    legend_txt = strrep(legend_txt,'_BI','');
+    legend_txt = strrep(legend_txt,'_ALL','');
+    legend_txt = strrep(legend_txt,'_',' '); % replace underscore with space
+    legend_txt = strrep(legend_txt,'HORIZONTAL','HORI'); % replace underscore with space
+    line([(4+i)/12 (4+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
+    text((4+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
+end
+
 set(guiObjects.trialRaster,'UserData',timeVec);
 set(guiObjects.trialRaster,'ButtonDownFcn',{@rasterAxesClick_CALLBACK,...
     dataCell,guiObjects,rasterLocation});
