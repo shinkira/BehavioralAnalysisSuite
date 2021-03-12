@@ -106,9 +106,10 @@ for i=1:size(dataCell,2)
     % stim/non-stim indicator
     if isfield(dataCell{i},'stim')
         if dataCell{i}.stim.power > 0
+            stimColor = getStimColor(dataCell{i}.stim.label);
             guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
                 [yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1))],...
-                [0.5 0 0.9],'EdgeColor','none');
+                stimColor,'EdgeColor','none');
         else
             guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
                 [yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1))],...
@@ -272,3 +273,19 @@ if isfield(procData,'mazeLengthAll') %if greyFacAll exists
     end
 end
 end
+
+function stimColor = getStimColor(label)
+
+    color_set = [255,255,255;
+                55,126,184;
+                77,175,74;
+                152,78,163;
+                255,127,0;
+                255,255,51;
+                166,86,40;
+                247,129,191]./(2^8-1);
+
+    pick = strcmp(label,{'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'});
+    stimColor = color_set(pick,:);
+end
+            
