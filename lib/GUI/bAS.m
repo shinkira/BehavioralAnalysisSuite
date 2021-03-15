@@ -29,10 +29,12 @@ button_height = 0.58; % 0.605
 guiObjects.figHandle = figure('Name','Behavioral Analysis Suite v1.0','NumberTitle','Off','MenuBar','none');
 if strcmp(getComputerName,'shin-pc')
     set(guiObjects.figHandle,'OuterPosition',[scrn(1)+0.3*scrn(3) scrn(2) 0.7*scrn(3) 0.75*scrn(4)]);
+    tableFontSize = 12;
 else
     set(guiObjects.figHandle,'OuterPosition',[scrn(1) scrn(2) scrn(3) 0.75*scrn(4)]);
+    tableFontSize = 11;
 end
-guiObjects.table = uitable('FontName','Arial','FontSize',12,'RowStriping','on','BackgroundColor',...
+guiObjects.table = uitable('FontName','Arial','FontSize',tableFontSize,'RowStriping','on','BackgroundColor',...
     [1 1 1; 0.8 0.8 0.8],'Units','normalized','Position',[0 .32 1 .28]); % [0 .32 1 .28]
 
 %create start live acquisition button
