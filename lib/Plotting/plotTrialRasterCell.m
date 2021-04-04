@@ -149,6 +149,7 @@ for i = 1:size(cmapCustom,1)
     text(.0417*i+.01,.5,num2str(i),'Color',cmapCustom(i,:),'HorizontalAlignment','Left');
 end
 
+% Create figure legnd by showing rasters and corresponding inhibition types
 switch rand_mode
     case 'area'
         stim_area_set = {'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'};
@@ -167,8 +168,8 @@ switch rand_mode
         for i = 1:length(stim_seg_set)
             stimColor = getStimColorSeg(stim_seg_set{i});
             legend_txt = stim_seg_set{i};
-            line([(4+i)/12 (4+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
-            text((4+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
+            line([(8+i)/12 (8+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
+            text((8+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
         end
 end
 
