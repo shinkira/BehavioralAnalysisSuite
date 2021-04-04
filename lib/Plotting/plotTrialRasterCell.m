@@ -104,9 +104,16 @@ for i=1:size(dataCell,2)
             [0.9 0.36 0.36],'EdgeColor','none');
     end
     % stim/non-stim indicator
+    rand_mode = 'seg'; % randomizing inhibition areas (area) or inhibition segments (seg)
+    
     if isfield(dataCell{i},'stim')
         if dataCell{i}.stim.power > 0
-            stimColor = getStimColor(dataCell{i}.stim.label);
+            switch rand_mode
+                case 'area'
+                    stimColor = getStimColorArea(dataCell{i}.stim.label);
+                case 'seg'
+                    stimColor = getStimColorSeg([dataCell{i}.stim.sample,dataCell{i}.stim.delay,dataCell{i}.stim.test,dataCell{i}.stim.turn]);
+            end
             guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
                 [yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1))],...
                 stimColor,'EdgeColor','none');
@@ -142,17 +149,27 @@ for i = 1:size(cmapCustom,1)
     text(.0417*i+.01,.5,num2str(i),'Color',cmapCustom(i,:),'HorizontalAlignment','Left');
 end
 
-
-stim_area_set = {'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'};
-for i = 1:8
-    stimColor = getStimColor(stim_area_set{i});
-    legend_txt = stim_area_set{i};
-    legend_txt = strrep(legend_txt,'_BI','');
-    legend_txt = strrep(legend_txt,'_ALL','');
-    legend_txt = strrep(legend_txt,'_',' '); % replace underscore with space
-    legend_txt = strrep(legend_txt,'HORIZONTAL','HORI'); % replace underscore with space
-    line([(4+i)/12 (4+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
-    text((4+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
+switch rand_mode
+    case 'area'
+        stim_area_set = {'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'};
+        for i = 1:length(stim_area_set)
+            stimColor = getStimColorArea(stim_area_set{i});
+            legend_txt = stim_area_set{i};
+            legend_txt = strrep(legend_txt,'_BI','');
+            legend_txt = strrep(legend_txt,'_ALL','');
+            legend_txt = strrep(legend_txt,'_',' '); % replace underscore with space
+            legend_txt = strrep(legend_txt,'HORIZONTAL','HORI'); % replace underscore with space
+            line([(4+i)/12 (4+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
+            text((4+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
+        end
+    case 'seg'
+        stim_seg_set = {'All','Sample','Delay','Test'};
+        for i = 1:length(stim_seg_set)
+            stimColor = getStimColorSeg(stim_seg_set{i});
+            legend_txt = stim_seg_set{i};
+            line([(4+i)/12 (4+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
+            text((4+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
+        end
 end
 
 set(guiObjects.trialRaster,'UserData',timeVec);
@@ -287,7 +304,7 @@ if isfield(procData,'mazeLengthAll') %if greyFacAll exists
 end
 end
 
-function stimColor = getStimColor(label)
+function stimColor = getStimColorArea(label)
 
     color_set = [255,255,255; % No Stim
                 55,126,184; % PPC
@@ -300,7 +317,27 @@ function stimColor = getStimColor(label)
                 ]./(2^8-1);
     color_set([6,2],:) = color_set([2,6],:);
     
-    pick = strcmp(label,{'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'});
+    pick = findrow(label,{'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'});
+    stimColor = color_set(pick,:);
+end
+
+function stimColor = getStimColorSeg(seg)
+
+    color_set =[255,127, 0; % Orange
+                 77,175,74; % Sample
+                152,78,163; % Delay
+                247,129,191 ... % Test
+                ]./(2^8-1);
+    stim_seg_set = {'All','Sample','Delay','Test'};
+    stim_seg_set_v = [1 1 1 1;
+                      1 0 0 0;
+                      0 1 0 0;
+                      0 0 1 1];
+    if isstr(seg)
+        pick = strcmp(stim_seg_set,seg);
+    else
+        pick = ismember(stim_seg_set_v,seg,'rows');
+    end
     stimColor = color_set(pick,:);
 end
             
