@@ -164,12 +164,12 @@ switch rand_mode
             text((4+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
         end
     case 'seg'
-        stim_seg_set = {'All','Sample','Delay','Test'};
+        stim_seg_set = {'All','Sample','Delay','Test&Turn','Test','Turn'};
         for i = 1:length(stim_seg_set)
             stimColor = getStimColorSeg(stim_seg_set{i});
             legend_txt = stim_seg_set{i};
-            line([(8+i)/12 (8+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
-            text((8+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
+            line([(6+i)/12 (6+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
+            text((6+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
         end
 end
 
@@ -327,13 +327,17 @@ function stimColor = getStimColorSeg(seg)
     color_set =[255,127, 0; % Orange
                  77,175,74; % Sample
                 152,78,163; % Delay
-                247,129,191 ... % Test
+                247,129,191;% Test
+                255,  0,  0;
+                  0,  0,255; ... 
                 ]./(2^8-1);
-    stim_seg_set = {'All','Sample','Delay','Test'};
+    stim_seg_set = {'All','Sample','Delay','Test&Turn','Test','Turn'};
     stim_seg_set_v = [1 1 1 1;
                       1 0 0 0;
                       0 1 0 0;
-                      0 0 1 1];
+                      0 0 1 1;
+                      0 0 1 0;
+                      0 0 0 1];
     if isstr(seg)
         pick = strcmp(stim_seg_set,seg);
     else
