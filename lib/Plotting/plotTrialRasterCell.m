@@ -91,39 +91,56 @@ for i=1:size(dataCell,2)
     else
         newCellFlag = false;
     end
-    
+        
+    f1 = 0.8;  % height of correct/error indicator
+    f2 = 0.65; % height of stim area indicator
+    f3 = 0.5;  % height of stim seg indicator
     halfInd = halfInd/totTime;
     % correct/error indicator
     if dataCell{i}.result.correct
         guiObjects.shadeHandle(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
-            [yBounds(2) yBounds(2) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1))],...
+            [yBounds(2) yBounds(2) yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f1*(yBounds(2)-yBounds(1))],...
             [0.18 0.8 0.44],'EdgeColor','none');
     else
         guiObjects.shadeHandle(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
-            [yBounds(2) yBounds(2) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1))],...
+            [yBounds(2) yBounds(2) yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f1*(yBounds(2)-yBounds(1))],...
             [0.9 0.36 0.36],'EdgeColor','none');
     end
     % stim/non-stim indicator
-    rand_mode = 'seg'; % randomizing inhibition areas (area) or inhibition segments (seg)
+    rand_mode = 'area_seg'; % randomizing inhibition areas (area) or inhibition segments (seg)
     
     if isfield(dataCell{i},'stim')
         if dataCell{i}.stim.power > 0
             switch rand_mode
                 case 'area'
                     stimColor = getStimColorArea(dataCell{i}.stim.label);
+                    guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
+                        [yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f3*(yBounds(2)-yBounds(1)) yBounds(1)+f3*(yBounds(2)-yBounds(1))],...
+                        stimColor,'EdgeColor','none');
                 case 'seg'
                     stimColor = getStimColorSeg([dataCell{i}.stim.sample,dataCell{i}.stim.delay,dataCell{i}.stim.test,dataCell{i}.stim.turn]);
+                    guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
+                        [yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f3*(yBounds(2)-yBounds(1)) yBounds(1)+f3*(yBounds(2)-yBounds(1))],...
+                        stimColor,'EdgeColor','none');
+                case 'area_seg'
+                    stimColor = getStimColorArea(dataCell{i}.stim.label);
+                    guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
+                        [yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f2*(yBounds(2)-yBounds(1)) yBounds(1)+f2*(yBounds(2)-yBounds(1))],...
+                        stimColor,'EdgeColor','none');
+                    
+                    stimColor = getStimColorSeg([dataCell{i}.stim.sample,dataCell{i}.stim.delay,dataCell{i}.stim.test,dataCell{i}.stim.turn]);
+                    guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
+                        [yBounds(1)+f2*(yBounds(2)-yBounds(1)) yBounds(1)+f2*(yBounds(2)-yBounds(1)) yBounds(1)+f3*(yBounds(2)-yBounds(1)) yBounds(1)+f3*(yBounds(2)-yBounds(1))],...
+                        stimColor,'EdgeColor','none');
             end
-            guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
-                [yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1))],...
-                stimColor,'EdgeColor','none');
+            
         else
             guiObjects.shadeHandle2(i) = patch([halfInd(1) halfInd(2) halfInd(2) halfInd(1)],...
-                [yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.8*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1)) yBounds(1)+0.6*(yBounds(2)-yBounds(1))],...
+                [yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f1*(yBounds(2)-yBounds(1)) yBounds(1)+f3*(yBounds(2)-yBounds(1)) yBounds(1)+f3*(yBounds(2)-yBounds(1))],...
                 [1,1,1],'EdgeColor','none');
         end
     end
-    guiObjects.rasterHandle(i) = line([ind/totTime ind/totTime],[yBounds(1) yBounds(1)+.8*(yBounds(2)-yBounds(1))]);
+    guiObjects.rasterHandle(i) = line([ind/totTime ind/totTime],[yBounds(1) yBounds(1)+f1*(yBounds(2)-yBounds(1))]);
     set(guiObjects.rasterHandle(i),'ButtonDownFcn',{@rasterClick_CALLBACK,...
         dataCell,i});
     rasterLocation(i) = ind/totTime;
@@ -170,6 +187,28 @@ switch rand_mode
             legend_txt = stim_seg_set{i};
             line([(6+i)/12 (6+i)/12],[0 1],'Color',stimColor,'LineWidth',3);
             text((6+i)/12+.01,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
+        end
+        
+    case 'area_seg'
+        
+        stim_seg_set = {'All','Sample','Delay','Test&Turn','Test','Turn'};
+        for i = 1:length(stim_seg_set)
+            stimColor = getStimColorSeg(stim_seg_set{i});
+            legend_txt = stim_seg_set{i};
+            line([(3+i)/18 (3+i)/18],[0 1],'Color',stimColor,'LineWidth',3);
+            text((3+i)/18+.005,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
+        end
+        
+        stim_area_set = {'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'};
+        for i = 1:length(stim_area_set)
+            stimColor = getStimColorArea(stim_area_set{i});
+            legend_txt = stim_area_set{i};
+            legend_txt = strrep(legend_txt,'_BI','');
+            legend_txt = strrep(legend_txt,'_ALL','');
+            legend_txt = strrep(legend_txt,'_',' '); % replace underscore with space
+            legend_txt = strrep(legend_txt,'HORIZONTAL','HORI'); % replace underscore with space
+            line([(9+i)/18 (9+i)/18],[0 1],'Color',stimColor,'LineWidth',3);
+            text((9+i)/18+.005,.5,legend_txt,'Color',stimColor,'HorizontalAlignment','Left');
         end
 end
 
@@ -318,7 +357,7 @@ function stimColor = getStimColorArea(label)
                 ]./(2^8-1);
     color_set([6,2],:) = color_set([2,6],:);
     
-    pick = findrow(label,{'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'});
+    pick = strcmp(label,{'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'});
     stimColor = color_set(pick,:);
 end
 
