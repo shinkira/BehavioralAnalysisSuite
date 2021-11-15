@@ -346,16 +346,15 @@ end
 
 function stimColor = getStimColorArea(label)
 
-    color_set = [255,255,255; % No Stim
-                55,126,184; % PPC
-                77,175,74;  % V1
-                152,78,163; % M2
-                255,127,0;  % M1
-                255,255,51; % S1
-                166,86,40;  % S1 horizontal 
-                247,129,191 ... % RSP
-                ]./(2^8-1);
-    color_set([6,2],:) = color_set([2,6],:);
+    area_color = [255,255,255; % No Stim
+                 255,255,51; % PPC
+                 77,175,74;  % V1
+                 152,78,163; % M2
+                 255,127,0;  % M1
+                 55,126,184; % S1
+                 166,86,40;  % S1 horizontal 
+                 247,129,191 ... % RSP
+                 ]./(2^8-1);
     
     pick = strcmp(label,{'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'});
     stimColor = color_set(pick,:);
