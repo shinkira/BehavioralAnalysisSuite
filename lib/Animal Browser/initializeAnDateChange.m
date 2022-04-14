@@ -29,15 +29,15 @@ end
 %Get list of folders in directory
 file_initials = fileDate(1:2);
 guiObjects.userData.initials = file_initials;
-folderList = dir([guiObjects.userData.initials,'*']); %get all folders 
+folderList = dir([guiObjects.userData.initials,'*']); %get all folders
 for i=1:size(folderList,1) %for each folder
     if isempty(strfind(path,folderList(i).name)) %if not current animal, loop to next folder
         continue;
     end
     
     loadedAn = i;
-    
-    cd(folderList(i).name); %change to directory
+    cd(path);
+    % cd(folderList(i).name); %change to directory
     fileList = dir([guiObjects.userData.initials,'*Cell*.mat']); %list files with cell array
     fileCell = cell(1,length(fileList)); %initialize cell
     for j=1:length(fileList) %for each file
