@@ -357,7 +357,7 @@ function stimColor = getStimColorArea(label)
                  ]./(2^8-1);
     
     pick = strcmp(label,{'NO_STIM','PPC_BI_ALL','V1_BI_ALL','M2_BI_ALL','M1_BI_ALL','S1_BI_ALL','S1_BI_HORIZONTAL','RSP_BI_ALL'});
-    stimColor = color_set(pick,:);
+    stimColor = area_color(pick,:);
 end
 
 function stimColor = getStimColorSeg(seg)
