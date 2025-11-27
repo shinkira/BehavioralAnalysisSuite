@@ -27,9 +27,9 @@ end
 
 %check to make sure nTrials in data array matches nTrials in dataCell
 if length(tStarts) > length(dataCell)
-    %     disp('nTrials in data array is greater than nTrials in dataCell');
-elseif length(tStarts) > length(dataCell)
-    error('nTrials in data array is less than nTrials in dataCell');
+    disp('nTrials in data array is greater than nTrials in dataCell');
+elseif length(tStarts) < length(dataCell)
+    disp('nTrials in data array is less than nTrials in dataCell');
 elseif length(tStarts) == length(dataCell) - 1
     dataCell = dataCell(1:end-1);
 end
