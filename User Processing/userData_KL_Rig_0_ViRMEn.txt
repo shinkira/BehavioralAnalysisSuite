@@ -14,7 +14,7 @@
 %location of your temporary directory for online processing. 
 %Ex. C:\Data\Ari\
 %
-C:\Users\shin\Documents\MATLAB\VirmenData\Current Mice\
+C:\Users\shin\Documents\MATLAB\VirmenData\
 %
 %
 %SECTION 2: User initials
